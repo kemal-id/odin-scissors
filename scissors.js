@@ -1,3 +1,4 @@
+// I used global variable because these are constant, and used across functions.
 const ROCK = "ROCK";
 const PAPER = "PAPER";
 const SCISSOR = "SCISSOR";
@@ -37,6 +38,8 @@ function playRound(humanChoice, computerChoice) {
   let message = "";
   let isHumanWin;
 
+  //actually, i used === && on all conditions and after I was done i looked to community solutions
+  //and optimized it.
   if (humanChoice === computerChoice) {
     message = "A Complete draw";
     isHumanWin = null;
@@ -55,8 +58,6 @@ function playRound(humanChoice, computerChoice) {
   console.log(choice + "\n" + message);
   return isHumanWin;
 }
-
-//Uhh, maybe I could optimize these ifs?
 
 function playGame() {
   let humanScore = 0;
@@ -83,3 +84,5 @@ function playGame() {
 }
 
 playGame();
+//i chose to put playRound() outside of playGame() because i wanted it to be able to run on its own
+//without playGame().
