@@ -37,11 +37,7 @@ function playRound(humanChoice, computerChoice) {
   let message = "";
   let isHumanWin;
 
-  if (
-    (humanChoice === ROCK && computerChoice === ROCK) ||
-    (humanChoice === PAPER && computerChoice === PAPER) ||
-    (humanChoice === SCISSOR && computerChoice === SCISSOR)
-  ) {
+  if (humanChoice === computerChoice) {
     message = "A Complete draw";
     isHumanWin = null;
   } else if (
@@ -51,15 +47,9 @@ function playRound(humanChoice, computerChoice) {
   ) {
     message = "You WIN! Congratulation!";
     isHumanWin = true;
-  } else if (
-    (computerChoice === SCISSOR && humanChoice === PAPER) ||
-    (computerChoice === ROCK && humanChoice === SCISSOR) ||
-    (computerChoice === PAPER && humanChoice === ROCK)
-  ) {
+  } else {
     message = "You Lose! booo!";
     isHumanWin = false;
-  } else {
-    message = "Uuh, something is wrong";
   }
 
   console.log(choice + "\n" + message);
