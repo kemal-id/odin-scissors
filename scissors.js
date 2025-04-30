@@ -2,9 +2,6 @@ const ROCK = "ROCK";
 const PAPER = "PAPER";
 const SCISSOR = "SCISSOR";
 
-let HUMAN_SCORE = 0;
-let COMPUTER_SCORE = 0;
-
 function getComputerChoice() {
   let mathChance = Math.random().toFixed(3);
 
@@ -36,9 +33,9 @@ function getHumanChoice() {
 }
 
 function playRound(humanChoice, computerChoice) {
-  console.log("Your choice: " + humanChoice);
-  console.log("Computer choice: " + computerChoice);
+  let choice = `Your choice: ${humanChoice} \nComputer choice: ${computerChoice}`;
   let message = "";
+  let isHumanWin;
 
   if (
     (humanChoice === ROCK && computerChoice === ROCK) ||
@@ -46,29 +43,53 @@ function playRound(humanChoice, computerChoice) {
     (humanChoice === SCISSOR && computerChoice === SCISSOR)
   ) {
     message = "A Complete draw";
+    isHumanWin = null;
   } else if (
     (humanChoice === ROCK && computerChoice === SCISSOR) ||
     (humanChoice === SCISSOR && computerChoice === PAPER) ||
     (humanChoice === PAPER && computerChoice === ROCK)
   ) {
     message = "You WIN! Congratulation!";
-    HUMAN_SCORE++;
+    isHumanWin = true;
   } else if (
     (computerChoice === SCISSOR && humanChoice === PAPER) ||
     (computerChoice === ROCK && humanChoice === SCISSOR) ||
     (computerChoice === PAPER && humanChoice === ROCK)
   ) {
     message = "You Lose! booo!";
-    COMPUTER_SCORE++;
+    isHumanWin = false;
   } else {
     message = "Uuh, something is wrong";
   }
 
-  console.log(message);
-  console.log("Your score: " + HUMAN_SCORE);
-  console.log("Computer score: " + COMPUTER_SCORE);
+  console.log(choice + "\n" + message);
+  return isHumanWin;
 }
 
 //Uhh, maybe I could optimize these ifs?
 
-playRound(getHumanChoice(), getComputerChoice());
+function playGame() {
+  let humanScore = 0;
+  let computerScore = 0;
+  let numberOfPlayedRound = 0;
+  while (numberOfPlayedRound < 5) {
+    let resultRound = playRound(getHumanChoice(), getComputerChoice());
+    switch (resultRound) {
+      case true:
+        humanScore++;
+        numberOfPlayedRound++;
+        break;
+      case false:
+        computerScore++;
+        numberOfPlayedRound++;
+        break;
+      default:
+        numberOfPlayedRound++;
+    }
+
+    let resultMessage = `Number of round played ${numberOfPlayedRound} \nYour score: ${humanScore} \nComputer score: ${computerScore}`;
+    console.log(resultMessage);
+  }
+}
+
+playGame();
