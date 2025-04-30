@@ -2,6 +2,9 @@ const ROCK = "ROCK";
 const PAPER = "PAPER";
 const SCISSOR = "SCISSOR";
 
+let HUMAN_SCORE = 0;
+let COMPUTER_SCORE = 0;
+
 function getComputerChoice() {
   let mathChance = Math.random().toFixed(3);
 
@@ -31,3 +34,41 @@ function getHumanChoice() {
       return getComputerChoice();
   }
 }
+
+function playRound(humanChoice, computerChoice) {
+  console.log("Your choice: " + humanChoice);
+  console.log("Computer choice: " + computerChoice);
+  let message = "";
+
+  if (
+    (humanChoice === ROCK && computerChoice === ROCK) ||
+    (humanChoice === PAPER && computerChoice === PAPER) ||
+    (humanChoice === SCISSOR && computerChoice === SCISSOR)
+  ) {
+    message = "A Complete draw";
+  } else if (
+    (humanChoice === ROCK && computerChoice === SCISSOR) ||
+    (humanChoice === SCISSOR && computerChoice === PAPER) ||
+    (humanChoice === PAPER && computerChoice === ROCK)
+  ) {
+    message = "You WIN! Congratulation!";
+    HUMAN_SCORE++;
+  } else if (
+    (computerChoice === SCISSOR && humanChoice === PAPER) ||
+    (computerChoice === ROCK && humanChoice === SCISSOR) ||
+    (computerChoice === PAPER && humanChoice === ROCK)
+  ) {
+    message = "You Lose! booo!";
+    COMPUTER_SCORE++;
+  } else {
+    message = "Uuh, something is wrong";
+  }
+
+  console.log(message);
+  console.log("Your score: " + HUMAN_SCORE);
+  console.log("Computer score: " + COMPUTER_SCORE);
+}
+
+//Uhh, maybe I could optimize these ifs?
+
+playRound(getHumanChoice(), getComputerChoice());
