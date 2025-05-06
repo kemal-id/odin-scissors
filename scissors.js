@@ -2,6 +2,12 @@
 const ROCK = "ROCK";
 const PAPER = "PAPER";
 const SCISSOR = "SCISSOR";
+let humanChosen;
+
+const humanChoice = document.querySelector("#human-choice");
+const rockButton = document.querySelector("#rock");
+const paperButton = document.querySelector("#paper");
+const scissorButton = document.querySelector("#scissor");
 
 function getComputerChoice() {
   let mathChance = Math.random().toFixed(3);
@@ -14,23 +20,38 @@ function getComputerChoice() {
     return SCISSOR;
   }
 }
+humanChoice.addEventListener("click", getHumanChoice);
 
-function getHumanChoice() {
-  let message =
-    "write 1 for Rock, 2 for Scissors, 3 for Paper, otherwise it's random";
-  let humanChoice = window.prompt(message);
-  let intHumanChoice = parseInt(humanChoice);
+function getHumanChoice(e) {
+  // let message =
+  //   "write 1 for Rock, 2 for Scissors, 3 for Paper, otherwise it's random";
+  // let humanChoice = window.prompt(message);
+  // let intHumanChoice = parseInt(humanChoice);
 
-  switch (intHumanChoice) {
-    case 1:
-      return ROCK;
-    case 2:
-      return SCISSOR;
-    case 3:
-      return PAPER;
+  let target = e.target;
+  // console.log(target.id);
+
+  switch (target.id) {
+    case "rock":
+      humanChosen = ROCK;
+      console.log(humanChosen);
+      return;
+    case "scissor":
+      humanChosen = SCISSOR;
+      console.log(humanChosen);
+      return;
+    case "paper":
+      humanChosen = PAPER;
+      console.log(humanChosen);
+      return;
+    case "random":
+      humanChosen = getComputerChoice();
+      console.log(humanChosen);
+      return;
     default:
-      return getComputerChoice();
+      return;
   }
+
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -59,30 +80,30 @@ function playRound(humanChoice, computerChoice) {
   return isHumanWin;
 }
 
-function playGame() {
-  let humanScore = 0;
-  let computerScore = 0;
-  let numberOfPlayedRound = 0;
-  while (numberOfPlayedRound < 5) {
-    let resultRound = playRound(getHumanChoice(), getComputerChoice());
-    switch (resultRound) {
-      case true:
-        humanScore++;
-        numberOfPlayedRound++;
-        break;
-      case false:
-        computerScore++;
-        numberOfPlayedRound++;
-        break;
-      default:
-        numberOfPlayedRound++;
-    }
+// function playGame() {
+//   let humanScore = 0;
+//   let computerScore = 0;
+//   let numberOfPlayedRound = 0;
+//   while (numberOfPlayedRound < 5) {
+//     let resultRound = playRound(getHumanChoice(), getComputerChoice());
+//     switch (resultRound) {
+//       case true:
+//         humanScore++;
+//         numberOfPlayedRound++;
+//         break;
+//       case false:
+//         computerScore++;
+//         numberOfPlayedRound++;
+//         break;
+//       default:
+//         numberOfPlayedRound++;
+//     }
 
-    let resultMessage = `Number of round played ${numberOfPlayedRound} \nYour score: ${humanScore} \nComputer score: ${computerScore}`;
-    console.log(resultMessage);
-  }
-}
+//     let resultMessage = `Number of round played ${numberOfPlayedRound} \nYour score: ${humanScore} \nComputer score: ${computerScore}`;
+//     console.log(resultMessage);
+//   }
+// }
 
-playGame();
+// playGame();
 //i chose to put playRound() outside of playGame() because i wanted it to be able to run on its own
 //without playGame().
