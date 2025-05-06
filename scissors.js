@@ -2,7 +2,6 @@
 const ROCK = "ROCK";
 const PAPER = "PAPER";
 const SCISSOR = "SCISSOR";
-let humanChosen;
 
 const humanChoice = document.querySelector("#human-choice");
 const rockButton = document.querySelector("#rock");
@@ -20,64 +19,57 @@ function getComputerChoice() {
     return SCISSOR;
   }
 }
-humanChoice.addEventListener("click", getHumanChoice);
+humanChoice.addEventListener("click", playRound);
 
-function getHumanChoice(e) {
-  // let message =
-  //   "write 1 for Rock, 2 for Scissors, 3 for Paper, otherwise it's random";
-  // let humanChoice = window.prompt(message);
-  // let intHumanChoice = parseInt(humanChoice);
+function getHumanChoice(targetId) {
 
-  let target = e.target;
-  // console.log(target.id);
-
-  switch (target.id) {
+  switch (targetId) {
     case "rock":
-      humanChosen = ROCK;
-      console.log(humanChosen);
-      return;
+      return ROCK;
     case "scissor":
-      humanChosen = SCISSOR;
-      console.log(humanChosen);
-      return;
+      return SCISSOR;
     case "paper":
-      humanChosen = PAPER;
-      console.log(humanChosen);
-      return;
+      return PAPER;
     case "random":
-      humanChosen = getComputerChoice();
-      console.log(humanChosen);
-      return;
+      return getComputerChoice();
     default:
       return;
   }
 
 }
 
-function playRound(humanChoice, computerChoice) {
-  let choice = `Your choice: ${humanChoice} \nComputer choice: ${computerChoice}`;
+function playRound(e) {
+  const resultElement = document.querySelector("#result");
+  const messageElement = document.createElement("p");
   let message = "";
-  let isHumanWin;
+  let computerChoice = getComputerChoice();
+  let humanChosen = getHumanChoice(e.target.id);
+  let choice = `Your choice: ${humanChosen} \nComputer choice: ${computerChoice}`;
+  // let isHumanWin;
+
 
   //actually, i used === && on all conditions and after I was done i looked to community solutions
   //and optimized it.
-  if (humanChoice === computerChoice) {
+  if (humanChosen === computerChoice) {
     message = "A Complete draw";
-    isHumanWin = null;
+    // isHumanWin = null;
   } else if (
-    (humanChoice === ROCK && computerChoice === SCISSOR) ||
-    (humanChoice === SCISSOR && computerChoice === PAPER) ||
-    (humanChoice === PAPER && computerChoice === ROCK)
+    (humanChosen === ROCK && computerChoice === SCISSOR) ||
+    (humanChosen === SCISSOR && computerChoice === PAPER) ||
+    (humanChosen === PAPER && computerChoice === ROCK)
   ) {
     message = "You WIN! Congratulation!";
-    isHumanWin = true;
+    // isHumanWin = true;
   } else {
     message = "You Lose! booo!";
-    isHumanWin = false;
+    // isHumanWin = false;
   }
 
-  console.log(choice + "\n" + message);
-  return isHumanWin;
+  // console.log();
+  messageElement.innerText = choice + "\n" + message;
+  resultElement.appendChild(messageElement);
+
+  // return isHumanWin;
 }
 
 // function playGame() {
